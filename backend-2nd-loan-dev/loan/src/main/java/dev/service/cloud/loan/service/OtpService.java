@@ -2,6 +2,7 @@ package dev.service.cloud.loan.service;
 
 import com.eatthepath.otp.TimeBasedOneTimePasswordGenerator;
 import lombok.SneakyThrows;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.stereotype.Service;
@@ -12,7 +13,12 @@ import javax.crypto.SecretKey;
 @Service
 public class OtpService {
 
-    private JavaMailSender mailSender;
+    private final JavaMailSender mailSender;
+
+    @Autowired
+    public OtpService(JavaMailSender mailSender) {
+        this.mailSender = mailSender; // 생성자에서 초기화
+    }
 
     @SneakyThrows
     public String generateOtp() {

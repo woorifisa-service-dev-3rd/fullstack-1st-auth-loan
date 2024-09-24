@@ -18,19 +18,6 @@ public class OtpController {
     @Autowired
     private  OtpService otpService;
 
-    @PostMapping("/login")
-    public ResponseEntity<String> login(@RequestBody MemberRequestDto login) {
-        Boolean isLogin = memberService.login(login);
-//        System.out.println(member);
-        if (isLogin) {
-            // OTP 생성
-            String otp = otpService.generateOtp();
-//            otpService.sendOtpEmail(member.getEmail(), otp);
-            System.out.println(otp);
-            return ResponseEntity.ok("OTP가 전송되었습니다.");
-        }
-        return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("로그인 실패");
-    }
 
     @PostMapping("/verify-otp")
     public ResponseEntity<String> verifyOtp(@RequestBody String otpRequest) {

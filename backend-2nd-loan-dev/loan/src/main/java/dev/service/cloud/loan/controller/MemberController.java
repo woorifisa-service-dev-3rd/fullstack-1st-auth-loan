@@ -5,6 +5,7 @@ import dev.service.cloud.loan.dto.response.LoanResponseDto;
 import dev.service.cloud.loan.dto.response.MemberResponseDto;
 import dev.service.cloud.loan.service.LoanService;
 import dev.service.cloud.loan.service.MemberService;
+import dev.service.cloud.loan.service.OtpService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
@@ -20,6 +21,7 @@ import java.util.List;
 public class MemberController {
     private final MemberService memberService;
     private final LoanService loanService;
+    private final OtpService otpService;
 
     /**
      * 회원의 대출이력 목록 조회
@@ -33,12 +35,15 @@ public class MemberController {
     }
 
     @PostMapping("/login")
-    @CrossOrigin(origins = "http://localhost:3000")
+//    @CrossOrigin(origins = "http://localhost:3000")
     public ResponseEntity<Boolean> login(@RequestBody MemberRequestDto memberRequestDto) {
         log.info("Login cllad() !!!!!!");
         Boolean checked;
         if(memberService.login(memberRequestDto)){
             checked=true;
+            String otp = otpService.generateOtp();
+//            otpService.sendOtpEmail(member.getEmail(), otp);
+            System.out.println(otp);
             return new ResponseEntity<>(checked, HttpStatus.OK);
 
         }else{
