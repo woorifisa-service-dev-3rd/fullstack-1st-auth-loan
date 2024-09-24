@@ -4,7 +4,5 @@ import dev.service.cloud.loan.model.Member;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface MemberRepository extends JpaRepository<Member, Long> {
-
-    Member findByMemberName(String name);
-
+    Member findByName(String name);
 }

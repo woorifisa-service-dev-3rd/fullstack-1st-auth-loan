@@ -11,12 +11,16 @@ import org.springframework.transaction.annotation.Transactional;
 @RequiredArgsConstructor
 public class MemberServiceImpl implements MemberService{
 
-    private MemberRepository memberRepository;
-
+    private final MemberRepository memberRepository;
+//
     public Member findUserByUsername(String name){
-        return memberRepository.findByMemberName(name);
+        return memberRepository.findByName(name);
     }
-
+////
+////    public String generateOtpSecret() {
+////        return Base32.random();
+////    }
+//
     public void saveUser(Member member) {
         memberRepository.save(member);
     }
