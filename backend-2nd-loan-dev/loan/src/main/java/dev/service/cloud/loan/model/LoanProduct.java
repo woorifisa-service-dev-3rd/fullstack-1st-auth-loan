@@ -1,10 +1,10 @@
 package dev.service.cloud.loan.model;
 
 import dev.service.cloud.loan.dto.response.LoanProductResponseDto;
+import jakarta.persistence.*;
 import lombok.*;
 import org.hibernate.annotations.CreationTimestamp;
 
-import javax.persistence.*;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.ArrayList;
