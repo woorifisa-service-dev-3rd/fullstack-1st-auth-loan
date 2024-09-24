@@ -1,16 +1,15 @@
 package dev.service.cloud.loan.controller;
 
+import dev.service.cloud.loan.dto.request.MemberRequestDto;
 import dev.service.cloud.loan.dto.response.LoanResponseDto;
+import dev.service.cloud.loan.dto.response.MemberResponseDto;
 import dev.service.cloud.loan.service.LoanService;
 import dev.service.cloud.loan.service.MemberService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -31,5 +30,21 @@ public class MemberController {
     public ResponseEntity<List<LoanResponseDto>> getMemberLoanlist(@PathVariable("id") Long memberId) {
         List<LoanResponseDto> resDTO =loanService.getLoanListByMemberId(memberId);
         return new ResponseEntity<>(resDTO, HttpStatus.OK);
+    }
+
+    @PostMapping("/login")
+    @CrossOrigin(origins = "http://localhost:3000")
+    public ResponseEntity<Boolean> login(@RequestBody MemberRequestDto memberRequestDto) {
+        log.info("Login cllad() !!!!!!");
+        Boolean checked;
+        if(memberService.login(memberRequestDto)){
+            checked=true;
+            return new ResponseEntity<>(checked, HttpStatus.OK);
+
+        }else{
+            checked=false;
+            return new ResponseEntity<>(checked, HttpStatus.UNAUTHORIZED);
+        }
+
     }
 }
