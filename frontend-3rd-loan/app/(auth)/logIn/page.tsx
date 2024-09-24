@@ -1,23 +1,26 @@
 "use client";
 
 import React, { useState } from "react";
+import { useRouter } from "next/navigation";
 
 const Login = () => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
+  const router = useRouter();
 
   const handleLogIn = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault(); // 폼 제출 시 페이지 리로드 방지
 
-    // 서버로 보낼 대출 정보
+
+    // 서버로 보낼 로그인 정보 (DTO에 맞춰 필드 이름 수정)
     const logInData = {
-      username,
-      password,
+      email: username, // email 필드에 username 값을 할당
+      password: password, // password는 그대로 사용
     };
 
     try {
       // POST 요청 보내기
-      const response = await fetch("http://localhost:8080/login", {
+      const response = await fetch("http://localhost:8080/members/login", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -30,6 +33,9 @@ const Login = () => {
         const data = await response.json();
         alert("로그인 성공");
         console.log(data);
+        if (data) {
+          router.push("/otp"); // "/otp" 경로로 라우팅
+        }
       } else {
         // 에러 처리
         const data = await response.json();
@@ -43,7 +49,8 @@ const Login = () => {
   };
 
   return (
-    <form className="flex flex-col items-center w-1/2 bg-white border rounded-md p-5">
+    <form className="flex flex-col items-center w-1/2 bg-white border rounded-md p-5"
+      onSubmit={handleLogIn}>
       <h1 className="text-center text-3xl font-bold mb-5">로그인</h1>
       <input
         placeholder="이메일을 입력하세요."
@@ -59,7 +66,7 @@ const Login = () => {
       />
       <button
         className="border rounded-md bg-blue-600 w-20 text-white p-1"
-        onClick={() => handleLogIn}
+        type="submit"
       >
         로그인
       </button>

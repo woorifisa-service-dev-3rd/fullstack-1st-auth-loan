@@ -1,7 +1,8 @@
 package dev.service.cloud.loan.service;
 
-import dev.service.cloud.loan.model.Member;
+import dev.service.cloud.loan.dto.request.MemberRequestDto;
+import dev.service.cloud.loan.dto.response.MemberResponseDto;
 
 public interface MemberService {
-    Member findUserByUsername(String name);
+    boolean login(MemberRequestDto memberRequestDto);
 }
