@@ -33,6 +33,12 @@ dependencies {
 	annotationProcessor 'org.projectlombok:lombok'
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
 	testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
+
+	// gmail 전송 관련 의존성
+	implementation 'org.springframework.boot:spring-boot-starter-mail'
+	// OTP생성 유틸 의존성
+	implementation group: 'com.eatthepath', name: 'java-otp', version: '0.1.0'
+
 }
 
 tasks.named('test') {
