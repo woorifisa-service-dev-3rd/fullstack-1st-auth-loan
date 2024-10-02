@@ -32,13 +32,14 @@ const ProductFilter: React.FC<ProductFilterProps> = ({ setProducts }) => {
   ];
 
   const fetchProducts = async (condition: string) => {
-    let response = await fetch("http://localhost:8080/loan-products?filterName=" + condition, {
+    const url = process.env.NEXT_PUBLIC_SERVER_API_URL;
+    const response = await fetch(`${url}/loan-products?filterName=` + condition, {
       method: "GET",
       headers: {
         "Content-Type": "application/json",
       },
     });
-    let data = await response.json();
+    const data = await response.json();
     setProducts(data);
   };
 

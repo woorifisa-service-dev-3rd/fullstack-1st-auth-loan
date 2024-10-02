@@ -13,13 +13,14 @@ const ProductDetail: React.FC<ProductDetailProps> = ({ params }) => {
   const [product, setProduct] = useState<Product | null>(null);
 
   const fetchProduct = async () => {
-    let response = await fetch("http://localhost:8080/loan-products/" + params.productId, {
+    const url = process.env.NEXT_PUBLIC_SERVER_API_URL;
+    const response = await fetch(`${url}/loan-products/` + params.productId, {
       method: "GET",
       headers: {
         "Content-Type": "application/json",
       },
     });
-    let data = await response.json();
+    const data = await response.json();
     setProduct(data);
   };
 

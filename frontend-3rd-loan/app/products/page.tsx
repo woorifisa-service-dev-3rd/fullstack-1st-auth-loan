@@ -7,16 +7,17 @@ import React, { useEffect, useState } from "react";
 
 const ProductList = () => {
   const [products, setProducts] = useState<Product[]>([]);
-  const [filteredProducts, setFilteredProducts] = useState<Product[]>(products);
+  //const [filteredProducts, setFilteredProducts] = useState<Product[]>(products);
 
   const fetchProducts = async () => {
-    let response = await fetch("http://localhost:8080/loan-products", {
+    const url = process.env.NEXT_PUBLIC_SERVER_API_URL;
+    const response = await fetch(`${url}/loan-products`, {
       method: "GET",
       headers: {
         "Content-Type": "application/json",
       },
     });
-    let data = await response.json();
+    const data = await response.json();
     setProducts(data);
   };
 

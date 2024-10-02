@@ -1,6 +1,6 @@
 "use client";
 
-import { useRouter } from "next/navigation";
+//import { useRouter } from "next/navigation";
 import React, { useState } from "react";
 
 const Loan = () => {
@@ -9,7 +9,7 @@ const Loan = () => {
   const [loanProductId, setProductId] = useState("");
   const [loanAmount, setLoanAmount] = useState("");
 
-  const router = useRouter();
+  //const router = useRouter();
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault(); // 폼 제출 시 페이지 리로드 방지
@@ -23,7 +23,8 @@ const Loan = () => {
 
     try {
       // POST 요청 보내기
-      const response = await fetch("http://localhost:8080/loans", {
+      const url = process.env.NEXT_PUBLIC_SERVER_API_URL;
+      const response = await fetch(`${url}/loans`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
